@@ -1,7 +1,7 @@
 package com.test.digimind.testdigimind.services;
 
-import org.springframework.stereotype.Service;
+import com.test.digimind.testdigimind.responses.FilmResponse;
 
 public interface FilmsFromJsonFileService {
-    int getFilmsCountByGenre(String filmeNmae);
+    FilmResponse getFilmsCountByGenre(String filmeNmae);
 }

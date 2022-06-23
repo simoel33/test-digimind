@@ -3,6 +3,7 @@ package com.test.digimind.testdigimind.repositories;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.digimind.testdigimind.models.JsonFilm;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.test.digimind.testdigimind.responses.FilmResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,15 +24,16 @@ public class FilmsFromJsonFileRepository {
     ResourceLoader resourceLoader;
 
 
-    public int getFilmsCountByGenre(String filmeNmae) {
+    public FilmResponse getFilmsCountByGenre(String filmeNmae) {
         int count =0;
+        String genreFilme = "";
         try {
             Resource resource = resourceLoader.getResource("classpath:films.json");
             InputStream inputStream = new FileInputStream(resource.getFile());
             ObjectMapper mapper = new ObjectMapper();
             List<JsonFilm> jsonFilms = mapper.readValue(inputStream, new TypeReference<List<JsonFilm>>() {
             });
-            String genreFilme = "";
+
             for(JsonFilm film:jsonFilms){
                 if (film.getTitle().contains(filmeNmae)) {
                     genreFilme = film.getGenre();
@@ -52,8 +54,8 @@ public class FilmsFromJsonFileRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        FilmResponse filmResponse = new FilmResponse(genreFilme,count);
 
-
-        return count;
+        return filmResponse;
     }
 }

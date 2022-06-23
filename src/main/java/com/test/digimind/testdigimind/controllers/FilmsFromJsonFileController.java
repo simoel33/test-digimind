@@ -1,5 +1,6 @@
 package com.test.digimind.testdigimind.controllers;
 
+import com.test.digimind.testdigimind.responses.FilmResponse;
 import com.test.digimind.testdigimind.services.FilmsFromJsonFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,8 @@ public class FilmsFromJsonFileController {
     FilmsFromJsonFileService filmsFromJsonFileService;
 
     @GetMapping("/{filmeName}")
-    int getFilmsCountByGenre(@PathVariable String filmeName){
+    public FilmResponse getFilmsCountByGenre(@PathVariable String filmeName){
+
         return filmsFromJsonFileService.getFilmsCountByGenre(filmeName);
     }
 }
